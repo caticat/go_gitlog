@@ -24,9 +24,9 @@ func main() {
 	// 执行svn命令
 	var cmd *exec.Cmd
 	if ptrConfig.IncludeMerge {
-		cmd = exec.Command("git", "log", "--pretty=format:'%s,%an,%ce,%ai,%H'", "-"+ptrConfig.LogNum)
+		cmd = exec.Command("git", "log", "--pretty=format:'%s,,,,,%an,,,,,%ce,,,,,%ai,,,,,%H'", "-"+ptrConfig.LogNum)
 	} else {
-		cmd = exec.Command("git", "log", "--pretty=format:'%s,%an,%ce,%ai,%H'", "--no-merges", "-"+ptrConfig.LogNum)
+		cmd = exec.Command("git", "log", "--pretty=format:'%s,,,,,%an,,,,,%ce,,,,,%ai,,,,,%H'", "--no-merges", "-"+ptrConfig.LogNum)
 	}
 	log.Println("cmd:", cmd.String())
 	out, err := cmd.Output()

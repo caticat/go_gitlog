@@ -22,7 +22,7 @@ func (this *GitLog) Load(data string) error {
 	log.Println("[加载]", data)
 	data = strings.ReplaceAll(data, "\r\n", " ")
 	data = strings.ReplaceAll(data, "\n", " ")
-	sliData := strings.Split(data, ",")
+	sliData := strings.Split(data, ",,,,,")
 	l := len(sliData)
 	i := 0
 	if l > i {
