@@ -50,7 +50,7 @@
 <li>参数
 <ul>
 <li><code>-h</code>,显示帮助</li>
-<li><code>-l</code>,导出日志数量,默认<code>10</code></li>
+<li><code>-l</code>,导出日志数量,默认<code>50</code></li>
 <li><code>-m</code>,导出包含merge,默认<code>false</code></li>
 <li><code>-o</code>,输出文件,默认<code>comment.xlsx</code></li>
 <li><code>-v</code>,显示详细输出,,默认<code>false</code></li>
@@ -58,17 +58,20 @@
 </li>
 </ul>
 <h2 id="例子">例子</h2>
-<pre><code class="language-bash"><div><span class="hljs-comment"># 生成文件comment.xlsx,包含最近10条log日志</span>
+<pre><code class="language-bash"><div><span class="hljs-comment"># 生成文件comment.xlsx,包含最近50条log日志</span>
 gitlog.exe
 
 <span class="hljs-comment"># 最近20条日志</span>
 gitlog.exe -l 20
 
 <span class="hljs-comment"># 输出到E:/abc.xlsx</span>
-gitlog.exe -l 20 -m -o /e/abc.xlsx
+gitlog.exe -l 20 -o /e/abc.xlsx
 
 <span class="hljs-comment"># 显示详细输出</span>
-gitlog.exe -l 20 -m -o /e/abc.xlsx -v
+gitlog.exe -l 20 -o /e/abc.xlsx -v
+
+<span class="hljs-comment"># 包含merge日志</span>
+gitlog.exe -l 20 -o /e/abc.xlsx -v -m
 </div></code></pre>
 
     </body>

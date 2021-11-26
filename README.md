@@ -10,7 +10,7 @@
 - 运行`gitlog.exe`
 - 参数
   - `-h`,显示帮助
-  - `-l`,导出日志数量,默认`10`
+  - `-l`,导出日志数量,默认`50`
   - `-m`,导出包含merge,默认`false`
   - `-o`,输出文件,默认`comment.xlsx`
   - `-v`,显示详细输出,,默认`false`
@@ -18,15 +18,18 @@
 ## 例子
 
 ```bash
-# 生成文件comment.xlsx,包含最近10条log日志
+# 生成文件comment.xlsx,包含最近50条log日志
 gitlog.exe
 
 # 最近20条日志
 gitlog.exe -l 20
 
 # 输出到E:/abc.xlsx
-gitlog.exe -l 20 -m -o /e/abc.xlsx
+gitlog.exe -l 20 -o /e/abc.xlsx
 
 # 显示详细输出
-gitlog.exe -l 20 -m -o /e/abc.xlsx -v
+gitlog.exe -l 20 -o /e/abc.xlsx -v
+
+# 包含merge日志
+gitlog.exe -l 20 -o /e/abc.xlsx -v -m
 ```
