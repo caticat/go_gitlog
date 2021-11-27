@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"regexp"
 	"strings"
 )
 
@@ -12,13 +13,14 @@ type GitLog struct {
 	email    string
 	datetime string
 	comment  string
+	phx      string
 }
 
 func NewGitLog() *GitLog {
 	return &GitLog{}
 }
 
-func (this *GitLog) Load(data string) error {
+func (this *GitLog) Load(data string, ptrCommitFormat *regexp.Regexp) error {
 	log.Println("[加载]", data)
 	data = strings.ReplaceAll(data, "\r\n", " ")
 	data = strings.ReplaceAll(data, "\n", " ")
@@ -27,6 +29,13 @@ func (this *GitLog) Load(data string) error {
 	i := 0
 	if l > i {
 		this.comment = sliData[i]
+		if ptrCommitFormat != nil {
+			sliStr := ptrCommitFormat.FindStringSubmatch(this.comment)
+			if len(sliStr) > 2 {
+				this.phx = sliStr[1]
+				this.comment = sliStr[2]
+			}
+		}
 	}
 	i++
 	if l > i {
@@ -72,6 +81,7 @@ func Format(gitData string) ([]*GitLog, error) {
 	}
 
 	// 数据解析
+	ptrCommitFormat := regexp.MustCompile("(?i)^(PHX-[0-9]+)(.*)")
 	sliGitData := strings.Split(gitData, sep)
 	sliGitLog := make([]*GitLog, 0)
 	for _, data := range sliGitData {
@@ -79,7 +89,7 @@ func Format(gitData string) ([]*GitLog, error) {
 		data = strings.ReplaceAll(data, "\r\n\r\n", "\r\n")
 		data = strings.ReplaceAll(data, "\n\n", "\n")
 		ptrGitLog := NewGitLog()
-		if err := ptrGitLog.Load(data); err != nil {
+		if err := ptrGitLog.Load(data, ptrCommitFormat); err != nil {
 			return sliGitLog, err
 		}
 		sliGitLog = append(sliGitLog, ptrGitLog)
